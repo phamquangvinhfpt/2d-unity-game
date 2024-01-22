@@ -36,6 +36,12 @@ public class Player : MonoBehaviour
             position.x += 1 * Time.deltaTime;
             scale.x = -1;
         }
+        if(Input.GetKey(KeyCode.W)) {
+            position.y += 5 *Time.deltaTime;
+            transform.position = position;
+            
+            Debug.Log(position);
+        }
         transform.localScale = scale;
         transform.position = position;
 
