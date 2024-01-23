@@ -7,8 +7,10 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Start");
-    }
+        //Debug.Log("Start");
+        GetComponent<Animation>().Play("Idle");
+    
+}
 
     // Update is called once per frame
     void Update()
