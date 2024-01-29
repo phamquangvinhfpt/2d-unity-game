@@ -13,6 +13,7 @@ public class PlayerMoviement : MonoBehaviour
     private Animator animator;
     private BoxCollider2D boxCollider;
     private float wallJumpCooldown;
+    private float horizontalInput;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,11 +30,11 @@ public class PlayerMoviement : MonoBehaviour
 
     void Move()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
+        horizontalInput = Input.GetAxisRaw("Horizontal");
         //flip
-        if (horizontal > 0.01f) 
+        if (horizontalInput > 0.01f) 
             transform.localScale = new Vector3(1f, 1f, 1f);
-        else if (horizontal < -0.01f) 
+        else if (horizontalInput < -0.01f) 
             transform.localScale = new Vector3(-1f, 1f, 1f);
         Animator();
     }
@@ -46,8 +47,14 @@ public class PlayerMoviement : MonoBehaviour
             animator.SetTrigger("jump");
         } else if(onWall() && !isGrounded())
         {
+            if(horizontalInput == 0)
+            {
+                body.velocity = new Vector2(-Mathf.Sign(transform.localScale.x) * 10, 0);
+                transform.localScale = new Vector3(-Mathf.Sign(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            }
+            else 
+                body.velocity = new Vector2(-Mathf.Sign(transform.localScale.x) * 3, 6);
             wallJumpCooldown = 0;
-            body.velocity = new Vector2(-Mathf.Sign(transform.localScale.x) * 3, 6);
         }
     }
 
