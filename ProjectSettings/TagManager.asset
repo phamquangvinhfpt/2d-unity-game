@@ -3,12 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemies
+  - Background
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - CanJump
   - Water
   - UI
   - 
@@ -40,4 +42,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 2519477299
+    locked: 0
+  - name: Palyer
+    uniqueID: 901840233
+    locked: 0
+  - name: Enemies
+    uniqueID: 1230321781
+    locked: 0
+  - name: New Layer 4
+    uniqueID: 3145799325
     locked: 0
