@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class ItemCollector : MonoBehaviour
 {
-    private int blue = 0;
+    [SerializeField] private float HealthValue = 20;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Blue"))
+        if (collision.gameObject.CompareTag("Player"))
         {
-            Destroy(collision.gameObject);
-            blue++;
+            collision.GetComponent<Health>().Heal(HealthValue);
+            gameObject.SetActive(false);
         }
     }
 }

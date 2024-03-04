@@ -16,7 +16,11 @@ public class Boss01Movement : MonoBehaviour
     private BoxCollider2D Boxcoll;
 
     [SerializeField] private LayerMask jumpableGround;
-    private enum MovementState { idle, walking, jump }
+    [SerializeField] private LayerMask jumpableWall;
+
+    [SerializeField] private float attackCoolDown;
+    private float coolDownTimer = Mathf.Infinity;
+    private enum MovementState { idle, walking, jump}
     // Start is called before the first frame update
     void Start()
     {
@@ -35,17 +39,23 @@ public class Boss01Movement : MonoBehaviour
         
         if (Input.GetButtonDown("Jump") && jumpTime < 2)
         {
-            rd2d.velocity = new Vector3(rd2d.velocity.x, jumpForce, 0);
+            rd2d.velocity = new Vector2(rd2d.velocity.x, jumpForce);
             jumpTime++;
-            UpdateAnimationUpdate();
         }
+        if (Input.GetKeyDown(KeyCode.J) && coolDownTimer > attackCoolDown)
+        {
+            Attack();
+        }
+        if (Input.GetKeyDown(KeyCode.H) && IsGrounded())
+        {
+            JumpAttack();
+        }
+        coolDownTimer += Time.deltaTime;
         if (indexY == rd2d.velocity.y)
         {
             jumpTime = 0;
         }
         UpdateAnimationUpdate();
-        
-        
     }
     private void UpdateAnimationUpdate()
     {
@@ -60,16 +70,35 @@ public class Boss01Movement : MonoBehaviour
             state = MovementState.walking;
             spriteRenderer.flipX = true;
         }
-
-        if(rd2d.velocity.y > .1f || rd2d.velocity.y < -.1f)
+        if (rd2d.velocity.y > .1f || rd2d.velocity.y < -.1f)
         {
             state = MovementState.jump;
         }
         animator.SetInteger("state", (int)state);
     }
 
+    private bool onWall()
+    {
+        RaycastHit2D hit = Physics2D.BoxCast(Boxcoll.bounds.center, Boxcoll.bounds.size, 0, new Vector2(transform.localScale.x, 0), 0.1f, jumpableWall);
+        return hit.collider != null;
+    }
+    private void Attack()
+    {
+        coolDownTimer = 0;
+
+        animator.SetTrigger("attack");
+
+    }
+    private void JumpAttack()
+    {
+        coolDownTimer = 0;
+        rd2d.velocity = new Vector2(rd2d.velocity.x, jumpForce);
+        animator.SetTrigger("JumpAttack");
+        jumpTime++;
+    }
     private bool IsGrounded()
     {
         return Physics2D.BoxCast(Boxcoll.bounds.center, Boxcoll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
     }
+
 }

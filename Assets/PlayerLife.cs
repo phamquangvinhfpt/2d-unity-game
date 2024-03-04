@@ -6,30 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class PlayerLife : MonoBehaviour
 {
-    private Rigidbody2D rb;
-    private Animator animator;
-    // Start is called before the first frame update
-    private void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-    }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag("Trap"))
+        if (collision.CompareTag("Player"))
         {
-            Die();
+            collision.GetComponent<Health>().Damage(20);
         }
     }
-
-    private void Die()
-    {
-        animator.SetTrigger("Death");
-        rb.bodyType = RigidbodyType2D.Static;
-    }
-    private void RestartLevel()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
+    
 }
