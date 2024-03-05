@@ -4,9 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Blue
-  - Trap
-  - Heal
+  - Ground
+  - Enemy
+  - Checkpoint
   layers:
   - Default
   - TransparentFX
@@ -14,12 +14,12 @@ TagManager:
   - 
   - Water
   - UI
+  - 
+  - 
   - Ground
+  - Wall
   - Player
-  - enemy
-  - 
-  - 
-  - 
+  - Enemy
   - 
   - 
   - 
@@ -41,18 +41,18 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Background
-    uniqueID: 998084031
-    locked: 0
-  - name: snowman
-    uniqueID: 732894325
-    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Ground
-    uniqueID: 1067058645
+  - name: Background
+    uniqueID: 2233872901
     locked: 0
-  - name: Tree
-    uniqueID: 4037127189
+  - name: Foreground
+    uniqueID: 2519254405
+    locked: 0
+  - name: Player
+    uniqueID: 960489153
+    locked: 0
+  - name: Ground
+    uniqueID: 2649148703
     locked: 0
